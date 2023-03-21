@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 # Installation
 Clone the repository
 ```
-git clone https://github.com/your-username/slack-bot-with-chatgpt.git
+git clone https://github.com/theoseo/slack-bot-with-chatgpt.git
 ```
 Install the required packages
 ```
