@@ -25,4 +25,4 @@ COPY . ./
 # Install production dependencies.
 RUN pip install -U pip && pip install -r requirements.txt
 
-CMD exec uvicorn app:api --host 0.0.0.0 --port $PORT --reload
+CMD exec uvicorn app:api --host 0.0.0.0 --port $PORT --reload --log-level warning
