@@ -34,6 +34,6 @@ To use the bot, simply mention it in any channel or direct message in your Slack
 
 
 # Acknowledgments
-[Slack Bolt Tutorial](https://slack.dev/bolt-python/tutorial/getting-started)
-[Slack Bolt documentation](https://api.slack.com/tools/bolt)
-[OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction)
+- [Slack Bolt Tutorial](https://slack.dev/bolt-python/tutorial/getting-started)
+- [Slack Bolt documentation](https://api.slack.com/tools/bolt)
+- [OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction)
