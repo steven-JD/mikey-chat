@@ -26,7 +26,7 @@ export OPENAI_API_KEY=<your-openai-api-key>
 ```
 Run the bot
 ```
-python main.py
+uvicorn app:api --port 3000 --reload
 ```
 
 # Usage
