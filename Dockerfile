@@ -6,7 +6,7 @@
 # export SLACK_BOT_TOKEN=
 # export OPENAI_API_KEY=
 # gcloud builds submit --tag gcr.io/$PROJECT_ID/slackGPT
-# gcloud run deploy slackgpt --image gcr.io/$PROJECT_ID/slackGPT --platform managed --update-env-vars SLACK_SIGNING_SECRET=$SLACK_SIGNING_SECRET,SLACK_BOT_TOKEN=$SLACK_BOT_TOKEN
+# gcloud run deploy slackgpt --image gcr.io/$PROJECT_ID/slackGPT --platform managed --update-env-vars SLACK_SIGNING_SECRET=$SLACK_SIGNING_SECRET,SLACK_BOT_TOKEN=$SLACK_BOT_TOKEN,OPENAI_API_KEY=$OPENAI_API_KEY
 #
 
 # ----------------------------------------------
