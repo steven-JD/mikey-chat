@@ -36,7 +36,7 @@ To use the bot, simply mention it in any channel or direct message in your Slack
 # Acknowledgments
 This readme.md file was originally written by ChatGPT.
 
-- [Slack Bolt Tutorial](https://slack.dev/bolt-python/tutorial/getting-started)
+- [Slack Bolt Tutorial](https   ://slack.dev/bolt-python/tutorial/getting-started)
 - [Slack Bolt documentation](https://api.slack.com/tools/bolt)
 - [OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction)
 - [Slack Bolt FastAPI example](https://github.com/slackapi/bolt-python/tree/main/examples/fastapi)
