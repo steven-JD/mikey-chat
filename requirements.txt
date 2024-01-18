@@ -3,3 +3,4 @@ slack_bolt>=1.6.1
 openai
 fastapi
 uvicorn
+aiohttp
