@@ -137,10 +137,10 @@ async def update_home_tab(client, event, logger):
 @app.event("message")
 async def handle_message(body, say, logger):
     event = body["event"]
-    channel_id = event.get("channel")
+    channel_id = event.get("channel")          
     user_id = event.get("user")
     text = event.get("text")
-    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. You should ensure your responses are extremely detailed - not just a few words."
+    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. You should ensure your responses are extremely detailed - not just a few words. Do not ask for the user to upload additional documents, only use what you have. "
     if text is None:
       text = ""
       text += context_str
