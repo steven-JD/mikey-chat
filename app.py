@@ -63,7 +63,8 @@ def run_bot(question, assistant_id):
     approach to seeking clarification, thereby enhancing the accuracy and 
     relevance of its assistance. 
     """,
-    tools=[{"type": "code_interpreter"}, {"type": "retrieval"}]
+    tools=[{"type": "code_interpreter"}, {"type": "retrieval"}],
+    file_ids=files
     )
     # If run_check.completed_at is None, the run is still in progress, so wait for it to complete
     
