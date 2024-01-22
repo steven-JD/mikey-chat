@@ -86,6 +86,7 @@ async def handle_message(body, say, logger):
     user_id = event.get("user")
     text = event.get("text")
     output_str = re.sub(r"@\w+", "", text)
+    response = None  # Define response before the try block
     try:
         response = openai.ChatCompletion.create(
             model="gpt-4",
@@ -96,10 +97,9 @@ async def handle_message(body, say, logger):
         logger.error(e)
         pass
     
-    result = response.choices[0]['message']['content']
-
-
-    # If the user sends a DM to the bot, the bot will respond with a message.
-    await say(channel=channel_id, text=result)  
+    if response:  # Check if response is not None before accessing it
+        result = response.choices[0]['message']['content']
+        # If the user sends a DM to the bot, the bot will respond with a message.
+        await say(channel=channel_id, text=result)  
         
 
