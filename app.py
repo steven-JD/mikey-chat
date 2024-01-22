@@ -160,7 +160,7 @@ async def handle_message(body, say, logger):
     channel_id = event.get("channel")
     user_id = event.get("user")
     text = event.get("text")
-    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response. Always examine the uploaded documents first to look for specific answers.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. You should ensure your responses are extremely detailed - not just a few words. Make sure your formatting is correct. Remember, use * for bold, and • for bullet points. Make sure your responses are well structured and easy to read."
+    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response. Always examine the uploaded documents first to look for specific answers.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. Make sure your formatting is correct. Remember, use * for bold, and • for bullet points. Make sure your responses are well structured."
     if text is None:
       text = ""
       text += context_str
