@@ -140,7 +140,11 @@ async def handle_message(body, say, logger):
     channel_id = event.get("channel")
     user_id = event.get("user")
     text = event.get("text")
-    output_str = "Be as detailed as possible in your response. Use these guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), when using numbered lists you can mimic the formatting using the number symbol (#) and a space before your text (# numbered list), when using italics in your responses, use the format _text_, when using code in your responses, use the format `code`, when using code blocks in your responses, use the format ```code block```, when using links in your responses, use the format <https://www.google.com|link text>. Ensure you don't use ** around texts, only * for bold." + ": " + re.sub(r"@\w+", "", text) 
+    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. You should ensure your responses are extremely detailed - not just a few words."
+    if text is None:
+      text = ""
+      text += context_str
+    output_str = re.sub(r"@\w+", "", text) 
     response = None  # Define response before the try block
     try:
         response = run_bot(output_str, assistant_id, files)
