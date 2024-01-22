@@ -77,10 +77,6 @@ async def update_home_tab(client, event, logger):
     logger.error(f"Error publishing home tab: {e}")
 
 
-@app.command("/chat-mode")
-async def handle_mode_command(body, ack):
-    app.mode = body["text"]
-    await ack("I am your {} :tada:".format(chat_mode[app.mode]))
 # ============== Message Events ============= #
 # When a user sends a DM in slack, the event type will be 'message'.
 @app.event("message")
@@ -92,8 +88,8 @@ async def handle_message(body, say, logger):
     output_str = re.sub(r"@\w+", "", text)
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role":"system", "content": "You are my {}.".format(chat_mode[app.mode])},
+            model="gpt-4",
+            messages=[{"role":"system", "content": "You are an expert in marketing analysis"},
                       {"role":"user", "content": "{}".format(output_str)}]
         )
     except Exception as e:
