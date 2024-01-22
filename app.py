@@ -155,7 +155,7 @@ async def handle_message(body, say, logger):
     output_str = re.sub(r"@\w+", "", text) 
     response = None  # Define response before the try block
     try:
-        response = run_bot(output_str, assistant_id, files)
+        response = run_bot(output_str, assistant_id)
     except Exception as e:
         logger.error(e)
         pass
