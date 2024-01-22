@@ -10,15 +10,17 @@ from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 app = AsyncApp()
 app.mode = "bot"
 app_handler = AsyncSlackRequestHandler(app)
-import openai
+from openai import OpenAI
 chat_mode = {
     "tutor": "python tutor",
     "counselor": "psychological counselor",
     "bot": "bot",
     "assistant": "write assistant",
 }
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
 api = FastAPI()
 @api.post("/slack/events")
@@ -88,7 +90,7 @@ async def handle_message(body, say, logger):
     output_str = re.sub(r"@\w+", "", text)
     response = None  # Define response before the try block
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role":"system", "content": "You are an expert in marketing analysis"},
                       {"role":"user", "content": "{}".format(output_str)}]
