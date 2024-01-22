@@ -23,13 +23,21 @@ client = OpenAI(
 )
 
 assistant_id = 'asst_gPONKewxmSG9lXKs1W8nItPV'
-files =['file-phoamx3VkaccfI90aWGsxPeg',
- 'file-IyI9IhvmAmDcz0mIKFYYSvYk',
- 'file-hV3tlR7rWHKka1gFVm7mtYeF',
- 'file-9iY4CtAqXgBVsVRQdmGEHKJ1']
 
 
-def run_bot(question, assistant_id, files):
+
+def run_bot(question, assistant_id):
+    
+    def upload_files(client, file_paths):
+      file_ids = []
+      for path in file_paths:
+          with open(path, "rb") as file:
+              response = client.files.create(file=file, purpose='assistants')
+              file_ids.append(response.id)
+      return file_ids
+
+    file_paths = ["disdemand.pdf", "gadspec.pdf", "pmaxg.pdf", "resps.pdf"]
+    files = upload_files(client, file_paths)
     
     thread = client.beta.threads.create(
     messages=[
