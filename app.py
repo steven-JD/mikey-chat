@@ -100,7 +100,7 @@ async def handle_message(body, say, logger):
         pass
     
     if response:  # Check if response is not None before accessing it
-        result = response.choices[0]['message']['content']
+        result = response.choices[0].message.content
         # If the user sends a DM to the bot, the bot will respond with a message.
         await say(channel=channel_id, text=result)  
         
