@@ -39,6 +39,20 @@ def run_bot(question, assistant_id):
     file_paths = ["disdemand.pdf", "gadspec.pdf", "pmaxg.pdf", "resps.pdf"]
     files = upload_files(client, file_paths)
     
+    assistant = client.beta.assistants.create(
+    name="Marketing Wizard",
+    description="""The Marketing Wizard Assistant will embody an analytical 
+        character, focusing on logical, data-driven responses. It will delve deeply into
+        the technical aspects of Google Ads, providing detailed, fact-based 
+        information. In scenarios where the Assistant lacks sufficient details to offer a
+        complete answer, it will prompt users for additional information. This 
+        approach ensures that responses are tailored to the specific needs of the 
+        inquiry.""",
+        model="gpt-4-1106-preview",
+        tools=[{"type": "code_interpreter"}],
+        file_ids=files
+        )
+    
     thread = client.beta.threads.create(
     messages=[
         {
@@ -49,9 +63,11 @@ def run_bot(question, assistant_id):
     ]
     )
 
+
+
     run = client.beta.threads.runs.create(
     thread_id=thread.id,
-    assistant_id=assistant_id,
+    assistant_id=assistant.id,
     instructions="""The Google Ad Spec Assistant will embody an analytical 
     character, focusing on logical, data-driven responses. It will delve deeply into
     the technical aspects of Google Ads, providing detailed, fact-based 
@@ -63,8 +79,7 @@ def run_bot(question, assistant_id):
     approach to seeking clarification, thereby enhancing the accuracy and 
     relevance of its assistance. 
     """,
-    tools=[{"type": "code_interpreter"}, {"type": "retrieval"}],
-    file_ids=files
+    tools=[{"type": "code_interpreter"}, {"type": "retrieval"}]
     )
     # If run_check.completed_at is None, the run is still in progress, so wait for it to complete
     
