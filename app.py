@@ -3,7 +3,7 @@ import os
 import re
 from fastapi import FastAPI, Request
 logging.basicConfig(level=logging.DEBUG)
-
+from time import sleep
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 
@@ -21,6 +21,59 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
+
+assistant_id = 'asst_gPONKewxmSG9lXKs1W8nItPV'
+files =['file-phoamx3VkaccfI90aWGsxPeg',
+ 'file-IyI9IhvmAmDcz0mIKFYYSvYk',
+ 'file-hV3tlR7rWHKka1gFVm7mtYeF',
+ 'file-9iY4CtAqXgBVsVRQdmGEHKJ1']
+
+
+def run_bot(question, assistant_id, files):
+    
+    thread = client.beta.threads.create(
+    messages=[
+        {
+        "role": "user",
+        "content": "{}".format(question),
+        "file_ids": files
+        }
+    ]
+    )
+
+    run = client.beta.threads.runs.create(
+    thread_id=thread.id,
+    assistant_id=assistant_id,
+    instructions="""The Google Ad Spec Assistant will embody an analytical 
+    character, focusing on logical, data-driven responses. It will delve deeply into
+    the technical aspects of Google Ads, providing detailed, fact-based 
+    information. In scenarios where the Assistant lacks sufficient details to offer a
+    complete answer, it will prompt users for additional information. This 
+    approach ensures that responses are tailored to the specific needs of the 
+    inquiry. The Assistant's primary aim is to deliver precise, comprehensive 
+    advice on Google Ads, combining its analytical nature with a user-friendly 
+    approach to seeking clarification, thereby enhancing the accuracy and 
+    relevance of its assistance. Never directly mention uploaded files in your response, only give answers as best as you can.
+    """,
+    tools=[{"type": "code_interpreter"}, {"type": "retrieval"}]
+    )
+    # If run_check.completed_at is None, the run is still in progress, so wait for it to complete
+    
+    while True:
+        run_test = client.beta.threads.runs.retrieve(
+            thread_id=thread.id,
+            run_id=run.id
+            )
+        if run_test.completed_at is not None:
+            break
+        sleep(2)
+        
+    messages = client.beta.threads.messages.list(
+    thread_id=thread.id
+    )
+
+    response = messages.data[0].content[0].text.value
+    return response
 
 api = FastAPI()
 @api.post("/slack/events")
@@ -90,17 +143,13 @@ async def handle_message(body, say, logger):
     output_str = re.sub(r"@\w+", "", text)
     response = None  # Define response before the try block
     try:
-        response = client.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role":"system", "content": "You are an expert in marketing analysis"},
-                      {"role":"user", "content": "{}".format(output_str)}]
-        )
+        response = run_bot(output_str, assistant_id, files)
     except Exception as e:
         logger.error(e)
         pass
     
     if response:  # Check if response is not None before accessing it
-        result = response.choices[0].message.content
+        result = response
         # If the user sends a DM to the bot, the bot will respond with a message.
         await say(channel=channel_id, text=result)  
         
