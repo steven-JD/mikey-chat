@@ -155,6 +155,18 @@ async def handle_message(body, say, logger):
     if response:  # Check if response is not None before accessing it
         result = response
         # If the user sends a DM to the bot, the bot will respond with a message.
-        await say(channel=channel_id, text=result)  
+        await say(
+        channel=channel_id,
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": result
+                }
+            }
+        ],
+        text=result  # This is a fallback for notifications and accessibility
+    )
         
 
