@@ -82,7 +82,7 @@ async def endpoint(req: Request):
 
 
 @app.event("app_home_opened")
-def update_home_tab(client, event, logger):
+async def update_home_tab(client, event, logger):
     try:
         # Call views.publish with the built-in client
         client.views_publish(
