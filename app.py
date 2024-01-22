@@ -53,7 +53,7 @@ def run_bot(question, assistant_id, files):
     inquiry. The Assistant's primary aim is to deliver precise, comprehensive 
     advice on Google Ads, combining its analytical nature with a user-friendly 
     approach to seeking clarification, thereby enhancing the accuracy and 
-    relevance of its assistance. Never directly mention uploaded files in your response, only give answers as best as you can. Use these guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), when using numbered lists you can mimic the formatting using the number symbol (#) and a space before your text (# numbered list), when using italics in your responses, use the format _text_, when using code in your responses, use the format `code`, when using code blocks in your responses, use the format ```code block```, when using links in your responses, use the format <https://www.google.com|link text>. Ensure you don't use ** around texts, only * for bold.
+    relevance of its assistance. 
     """,
     tools=[{"type": "code_interpreter"}, {"type": "retrieval"}]
     )
@@ -140,7 +140,7 @@ async def handle_message(body, say, logger):
     channel_id = event.get("channel")
     user_id = event.get("user")
     text = event.get("text")
-    output_str = re.sub(r"@\w+", "", text)
+    output_str = "Be as detailed as possible in your response. Use these guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), when using numbered lists you can mimic the formatting using the number symbol (#) and a space before your text (# numbered list), when using italics in your responses, use the format _text_, when using code in your responses, use the format `code`, when using code blocks in your responses, use the format ```code block```, when using links in your responses, use the format <https://www.google.com|link text>. Ensure you don't use ** around texts, only * for bold." + ": " + re.sub(r"@\w+", "", text) 
     response = None  # Define response before the try block
     try:
         response = run_bot(output_str, assistant_id, files)
