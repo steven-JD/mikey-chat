@@ -64,7 +64,7 @@ def run_bot(question, assistant_id, files):
             thread_id=thread.id,
             run_id=run.id
             )
-        if run_test.completed_at is not None:
+        if run_test.status == 'completed':
             break
         sleep(2)
         
