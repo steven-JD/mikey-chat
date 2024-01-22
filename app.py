@@ -67,13 +67,7 @@ def run_bot(question, files):
     instructions="""The Google Ad Spec Assistant will embody an analytical 
     character, focusing on logical, data-driven responses. It will delve deeply into
     the technical aspects of Google Ads, providing detailed, fact-based 
-    information. In scenarios where the Assistant lacks sufficient details to offer a
-    complete answer, it will prompt users for additional information. This 
-    approach ensures that responses are tailored to the specific needs of the 
-    inquiry. The Assistant's primary aim is to deliver precise, comprehensive 
-    advice on Google Ads, combining its analytical nature with a user-friendly 
-    approach to seeking clarification, thereby enhancing the accuracy and 
-    relevance of its assistance. 
+    information. 
     """,
     tools=[{"type": "code_interpreter"}, {"type": "retrieval"}]
     )
@@ -160,7 +154,7 @@ async def handle_message(body, say, logger):
     channel_id = event.get("channel")
     user_id = event.get("user")
     text = event.get("text")
-    context_str = "Be as detailed as possible in your response. Ensure you reference the uploaded documents in your response. Always examine the uploaded documents first to look for specific answers.  Use these markdown guidelines when formatting your response: When using bold in your responses, use the format *text*, when using bullet points you can mimic the formatting using the bullet point symbol (•) and a space before your text (• bulleted list), Ensure you don't use ** around texts, only * for bold. Make sure your formatting is correct. Remember, use * for bold, and • for bullet points. Make sure your responses are well structured."
+    context_str = "Be as detailed as possible in your response. Use single * when bolding an item"
     if text is None:
       text = ""
       text += context_str
