@@ -85,7 +85,7 @@ async def endpoint(req: Request):
 async def update_home_tab(client, event, logger):
     try:
         # Call views.publish with the built-in client
-        client.views_publish(
+        await client.views_publish(
             # Use the user ID associated with the event
             user_id=event["user"],
             # Home tabs must be enabled in your app configuration
